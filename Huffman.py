@@ -28,6 +28,14 @@ class HuffmanCode:
             return res
         return ''.join(res)
 
+    def EncodeAsASCIItext(self, msg):
+        codedMsg = self.Encode(msg, True)
+        res = []
+        for sym in codedMsg:
+            res.append(chr(int(sym, base=2)))
+        return ''.join(res)
+
+
     def GetCodeTable(self):
         return self.code_table
 
@@ -41,7 +49,7 @@ class HuffmanCode:
     def _count_frequensies(self, text):
         symbols = set(text) # получаем список символов в тексте
         res = [(symb,  text.count(symb)) for symb in symbols ] # находим количество каждого символа в тексте
-        res.sort(key = lambda x: (x[1],x[0]), reverse=False ) # сортируем по возрастанию частот
+        res.sort(key = lambda x: (x[1], x[0]), reverse=False ) # сортируем по возрастанию частот
         return res
 
     def _create_tree(self):
@@ -67,15 +75,20 @@ class HuffmanTreeNode:
         self.StringValue = str_val
 
     def __add__(self, other):
-        return HuffmanTreeNode(
+        new_node=HuffmanTreeNode(
             left=self,
             right=other,
             value=self.Value+other.Value,
             str_val= self.StringValue + other.StringValue
         )
+        self.Root = new_node
+        other.Root = new_node
+        return new_node
 
     def Traverse(self, res_dct, current_way):
         if self.Left is None and self.Right is None:
+            if self.Root is None:
+                current_way = '0'
             res_dct[self.StringValue] = current_way
             return
 
@@ -94,7 +107,7 @@ def ReverseDct(dct):
 
 
 
-msg = "fly me to the moon and let me play along the stars"
+'''msg = "hello world"
 bad = ''.join([bin(ord(s))[2:] for s in msg])
 print(bad)
 
@@ -102,7 +115,10 @@ h =HuffmanCode()
 code = h.Encode(msg)
 print(code)
 code_table = h.GetCodeTable()
+print(h.Decode(code, code_table))
+#decoder = HuffmanCode()
+#res = decoder.Decode(code, code_table)
+#print(res)
+'''
 
-decoder = HuffmanCode()
-msg = decoder.Decode(code, code_table)
-print(msg)
+
