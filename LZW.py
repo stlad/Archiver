@@ -31,17 +31,20 @@ class LZW:
     def Decode(self, code):
         decode_table = copy.copy(self.base_table)
         res = []
-        old_code = code[0]
-        res.append(decode_table[old_code])
-        old_symb = decode_table[old_code]
+        prev_code = code[0]
+        prev_line = decode_table[prev_code]
+        res.append(prev_line)
         for i in range(1,len(code)):
-            new_code = code[i]
-            line = decode_table[new_code]
+            current_code = code[i]
+            if current_code >= len(decode_table):
+                line = prev_line+prev_line[0]
+            else:
+                line = decode_table[current_code]
             res.append(line)
-            symb = line[0]
-            decode_table.append(old_symb+symb)
-            old_code = new_code
-            old_symb = decode_table[new_code]
+            decode_table.append(prev_line+line[0])
+            #prev_symb = decode_table[current_code]
+            prev_line = line
+
 
         return res
 
