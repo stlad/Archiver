@@ -64,7 +64,8 @@ class HuffmanCode:
             tree.sort(key = lambda x: x.Value, reverse=False )
         return tree[0]
 
-
+    def __str__(self):
+        return 'Код Хаффмана'
 
 class HuffmanTreeNode:
     def __init__(self,root = None, left = None, right = None, value=0, str_val = ''):

@@ -66,13 +66,17 @@ class RunningCode:
         return res
 
 
+    def __str__(self):
+        if self._IsHuffmanOn:
+            return 'Код длин серий с алгоритмом Хаффмана'
+        return 'Код длин серий'
 
 
 
 '''bad = ''.join([bin(ord(s))[2:] for s in 'hello world'])
 print(bad)
 '''
-
+'''
 msg = 'aaaaaaaaaaaaaaa Helllllllo woooooooorlddddd'
 msg_bin = [bin(ord(symb))[2:] for symb in msg]
 print(msg)
@@ -94,7 +98,7 @@ code_table = r.HuffmanCoder.GetCodeTable()
 print(''.join(s))
 dec = r.Decode(s,code_table)
 print(dec)
-
+'''
 
 
 

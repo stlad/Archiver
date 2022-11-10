@@ -6,7 +6,7 @@ import pkg_resources
 class LZW:
 
     def __init__(self):
-        self.base_table = list('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnipqrstuvwxyz ,.!?;:')
+        self.base_table = list('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmniopqrstuvwxyz ,.!?;:\n')
         return
 
     def Encode(self, msg: str, in_bin_format = False):
@@ -45,12 +45,14 @@ class LZW:
 
         return res
 
+    def __str__(self):
+        return 'LZW код'
 
-
+'''
 msg ="WED WE WEE WEB WET"
 print(msg)
 c = LZW()
 code, t  = c.Encode(msg, in_bin_format=False)
 print(code,'\n',t)
 msg = c.Decode(code)
-print(''.join(msg))
+print(''.join(msg))'''
